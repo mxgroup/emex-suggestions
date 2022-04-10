@@ -1,0 +1,8 @@
+﻿version: '3.4'
+
+services:
+  suggestions.restapi:
+    image: ${DOCKER_REGISTRY}/${DOCKER_IMAGE}:${CONTAINER_TAG}
+    build:
+      context: .
+      dockerfile: Suggestions.RestApi/Dockerfile

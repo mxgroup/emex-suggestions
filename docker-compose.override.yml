@@ -1,0 +1,8 @@
+﻿version: '3.4'
+
+services:
+  suggestions.restapi:
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+    ports:
+      - 61671:80

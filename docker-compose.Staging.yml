@@ -1,0 +1,33 @@
+﻿version: '3.4'
+
+services:
+  suggestions-rest-api:
+    image: ${DOCKER_REGISTRY}/${DOCKER_IMAGE}:${CONTAINER_TAG}
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Staging
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:80/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 20s
+    deploy:
+      update_config:
+        delay: 10s
+        order: start-first
+      placement:
+        constraints:
+          - node.role == worker
+          - node.labels.suggestions-app == true
+      resources:
+        limits:
+          memory: 3G
+        reservations:
+          memory: 64M
+    networks:
+      - infrastructure
+
+networks:
+  infrastructure:
+          driver: overlay
+          attachable: true 
